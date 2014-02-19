@@ -7,7 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ca.leesoft.connection.IParser;
+import ca.leesoft.connection.dataobjects.Ingred;
 import ca.leesoft.connection.dataobjects.IngredsList;
+import ca.leesoft.connection.impl.DescriptionParserImpl;
 import ca.leesoft.connection.impl.IndexPageParserImpl;
 
 public class TestParser {
@@ -42,6 +44,24 @@ public class TestParser {
 		content="<LI> <A HREF=\"/db/ingred/492\">Corona</A><LI> <A HREF=\"/db/ingred/470\">Cranberries</A></UL><TABLE BORDER=0 WIDTH=\"100%\"><TR><TD><B>Back&nbsp;|&nbsp;<a target=\"_self\" href=\"browse?level=2&dir=ingreds&char=%2A&start=151\">Next</A></TD><TD ALIGN=center><small>(1 - 151)</small></TD><TD ALIGN=RIGHT>514 found.<BR></TD></TR></TABLE></BODY></HTML>";
 		parser.setContent(content);
 		assertEquals("browse?level=2&dir=ingreds&char=%2A&start=151",parser.hasMore());
+	}
+	
+	@Test
+	public void descriptionParser(){
+		final DescriptionParserImpl parser=new DescriptionParserImpl();
+		String content="<TD VALIGN=\"top\" WIDTH=\"90%\" ROWSPAN=2>"+
+							"<H1>7-Up<HR></H1>"+
+							"<a href=\"http://www.7up.com/\"><img src=\"/gfx/images/7up-can.gif\" width=88 height=165 alt=\"[Seven UP/7-UP]\" align=\"left\" border=0 hspace=5></a>"+
+							"<P>7-UP is a lemon-lime flavored carbonated soft drink.</P>"+
+							"<P>It's taste is very similar to Sprite and substituting 7-UP for Sprite or"+
+							"Sprite for 7-UP in mixed drinks should work fine.</P>"+
+							"<br clear=\"both\">";
+		Ingred ingred=parser.parse(content);
+		assertEquals("7-Up",ingred.getName());
+		assertEquals("http://www.webtender.com/gfx/images/7up-can.gif",ingred.getImageUrl());
+		assertEquals("7-UP is a lemon-lime flavored carbonated soft drink."
+				+"It's taste is very similar to Sprite and substituting 7-UP for Sprite or"
+				+"Sprite for 7-UP in mixed drinks should work fine.",ingred.getDescription());
 		
 	}
 
