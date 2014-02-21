@@ -7,8 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ca.leesoft.connection.IParser;
-import ca.leesoft.connection.dataobjects.Ingred;
-import ca.leesoft.connection.dataobjects.IngredsList;
+import ca.leesoft.connection.pojo.Ingred;
+import ca.leesoft.connection.facade.IngredsList;
 import ca.leesoft.connection.impl.DescriptionParserImpl;
 import ca.leesoft.connection.impl.IndexPageParserImpl;
 
@@ -63,6 +63,21 @@ public class TestParser {
 				+"It's taste is very similar to Sprite and substituting 7-UP for Sprite or"
 				+"Sprite for 7-UP in mixed drinks should work fine.",ingred.getDescription());
 		
+	}
+	public void descriptionParserWithNoPicture(){
+		final DescriptionParserImpl parser=new DescriptionParserImpl();
+		String content="<TD VALIGN=\"top\" WIDTH=\"90%\" ROWSPAN=2>"+
+							"<H1>7-Up<HR></H1>"+
+							"<P>7-UP is a lemon-lime flavored carbonated soft drink.</P>"+
+							"<P>It's taste is very similar to Sprite and substituting 7-UP for Sprite or"+
+							"Sprite for 7-UP in mixed drinks should work fine.</P>"+
+							"<br clear=\"both\">";
+		Ingred ingred=parser.parse(content);
+		assertEquals("7-Up",ingred.getName());
+		assertNull(ingred.getImageUrl());
+		assertEquals("7-UP is a lemon-lime flavored carbonated soft drink."
+				+"It's taste is very similar to Sprite and substituting 7-UP for Sprite or"
+				+"Sprite for 7-UP in mixed drinks should work fine.",ingred.getDescription());
 	}
 
 }

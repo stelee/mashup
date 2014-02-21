@@ -24,7 +24,6 @@ public class WebCrawlerImpl implements IWebCrawler {
 		this.url = url;
 	}
 
-	@Override
 	public String getContent() {
 		// TODO Auto-generated method stub
 		final URL urlObject;
@@ -74,7 +73,6 @@ public class WebCrawlerImpl implements IWebCrawler {
 		
 	}
 
-	@Override
 	public String getContent(String url) {
 		// TODO Auto-generated method stub
 		this.url=url;

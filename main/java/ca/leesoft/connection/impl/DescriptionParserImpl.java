@@ -4,13 +4,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ca.leesoft.connection.IParser;
-import ca.leesoft.connection.dataobjects.Ingred;
+import ca.leesoft.connection.pojo.Ingred;
 
 public class DescriptionParserImpl implements IParser<Ingred> {
 	String content;
 	Ingred ingred;
 	final static String URL_PREFIX="http://www.webtender.com/gfx/images/";
-	@Override
 	public Ingred parse(String content) {
 		// TODO Auto-generated method stub
 		this.content=content;
@@ -46,13 +45,11 @@ public class DescriptionParserImpl implements IParser<Ingred> {
 		return ingred;
 	}
 
-	@Override
 	public String hasMore() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void setContent(String content) {
 		// TODO Auto-generated method stub
 		this.content=content;

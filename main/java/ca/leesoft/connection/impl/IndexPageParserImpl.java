@@ -4,12 +4,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ca.leesoft.connection.IParser;
-import ca.leesoft.connection.dataobjects.Ingred;
-import ca.leesoft.connection.dataobjects.IngredsList;
+import ca.leesoft.connection.pojo.Ingred;
+import ca.leesoft.connection.facade.IngredsList;
 
 public class IndexPageParserImpl implements IParser<IngredsList> {
 	private String content=null;
-	@Override
 	public IngredsList parse(String content) {
 		this.setContent(content);
 		final Pattern p=Pattern.compile("<LI>\\s<A HREF=\"/db/ingred/\\d+\">(.*?)</A>");
@@ -34,7 +33,6 @@ public class IndexPageParserImpl implements IParser<IngredsList> {
 		return ingredsList;
 	}
 
-	@Override
 	public String hasMore() {
 		final Pattern p=Pattern.compile("<a target=\"_self\" href=\"(.*?)\">Next</A>");
 		final Matcher matcher=p.matcher(this.content);
@@ -50,7 +48,6 @@ public class IndexPageParserImpl implements IParser<IngredsList> {
 		return content;
 	}
 
-	@Override
 	public void setContent(String content) {
 		this.content = content;
 	}
